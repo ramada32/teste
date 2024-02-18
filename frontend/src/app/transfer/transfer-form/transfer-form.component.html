@@ -1,0 +1,32 @@
+<p-button label="Voltar" routerLink="/"></p-button>
+<form [formGroup]="transferForm"  (submit)="saveUpdate()">
+
+  <div class="grid formgrid">
+    <span class="p-float-label m-5 col">
+      <p-calendar formControlName="dateInitial" [showTime]="true" [showSeconds]="true"></p-calendar>
+      <label htmlFor="number-input">DateInitial</label>
+    </span>
+
+    <span class="p-float-label  m-5 col">
+      <p-calendar formControlName="dateFinal" [showTime]="true" [showSeconds]="true"></p-calendar>
+      <label htmlFor="number-input">DateFinal</label>
+    </span>
+
+    <span class="p-float-label  m-5 col">
+      <p-inputNumber formControlName="valueTransfer"></p-inputNumber>
+      <label htmlFor="number-input">ValueTransfer</label>
+    </span>
+
+    <span class="p-float-label  m-5 col">
+      <p-inputNumber formControlName="rateTransfer"></p-inputNumber>
+      <label htmlFor="number-input">RateTransfer</label>
+    </span>
+
+    <span class="p-float-label  m-5 col">
+      <p-inputNumber formControlName="freeValue"></p-inputNumber>
+      <label htmlFor="number-input">FreeValue</label>
+    </span>
+  </div>
+    <p-button [label]="btnLabel" type="submit" [disabled]="!this.transferForm.valid"></p-button>
+
+</form>
