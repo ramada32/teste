@@ -1,25 +1,27 @@
-<p-button label="Adicionar" routerLink="/form/adicionar"></p-button>
+<p-button label="Voltar" routerLink="/"></p-button>
 <p-table [value]="transfers">
   <ng-template pTemplate="header">
       <tr>
           <th>id</th>
+          <th>numberAccount</th>
+          <th>numberAccountDestiny</th>
           <th>dateInitial</th>
           <th>dateFinal</th>
           <th>rateTransfer</th>
           <th>valueTransfer</th>
           <th>freeValue</th>
-          <th>ações</th>
       </tr>
   </ng-template>
   <ng-template pTemplate="body" let-transfer>
       <tr>
           <td>{{ transfer.id }}</td>
+          <td>{{ transfer.numberAccount }}</td>
+          <td>{{ transfer.numberAccountDestiny }}</td>
           <td>{{ transfer.dateInitial }}</td>
           <td>{{ transfer.dateFinal }}</td>
-          <td>{{ transfer.rateTransfer }}</td>
-          <td>{{ transfer.valueTransfer }}</td>
-          <td>{{ transfer.freeValue }}</td>
-          <td><p-button label="editar" (click)="edit(transfer.id)"></p-button></td>
+          <td>{{ transfer.rateTransfer }} %</td>
+          <td >R$ {{ transfer.valueTransfer }}</td>
+          <td>R$ {{ transfer.freeValue }}</td>
       </tr>
   </ng-template>
 

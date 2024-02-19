@@ -2,30 +2,27 @@
 <form [formGroup]="transferForm"  (submit)="saveUpdate()">
 
   <div class="grid formgrid">
-    <span class="p-float-label m-5 col">
-      <p-calendar formControlName="dateInitial" [showTime]="true" [showSeconds]="true"></p-calendar>
-      <label htmlFor="number-input">DateInitial</label>
-    </span>
 
     <span class="p-float-label  m-5 col">
-      <p-calendar formControlName="dateFinal" [showTime]="true" [showSeconds]="true"></p-calendar>
-      <label htmlFor="number-input">DateFinal</label>
+      <p-calendar formControlName="dateFinal"></p-calendar>
+      <label htmlFor="number-input">Agendar Transferencia Para</label>
     </span>
 
     <span class="p-float-label  m-5 col">
       <p-inputNumber formControlName="valueTransfer"></p-inputNumber>
-      <label htmlFor="number-input">ValueTransfer</label>
+      <label htmlFor="number-input">Valor da Transferencia</label>
     </span>
 
     <span class="p-float-label  m-5 col">
-      <p-inputNumber formControlName="rateTransfer"></p-inputNumber>
-      <label htmlFor="number-input">RateTransfer</label>
+      <p-inputNumber formControlName="numberAccount"></p-inputNumber>
+      <label htmlFor="number-input" aria-valuenow=transferForm.valid>Numero da sua Conta</label>
     </span>
 
     <span class="p-float-label  m-5 col">
-      <p-inputNumber formControlName="freeValue"></p-inputNumber>
-      <label htmlFor="number-input">FreeValue</label>
+      <p-inputNumber formControlName="numberAccountDestiny"></p-inputNumber>
+      <label htmlFor="number-input">Numero da Conta do Destinatario</label>
     </span>
+
   </div>
     <p-button [label]="btnLabel" type="submit" [disabled]="!this.transferForm.valid"></p-button>
 

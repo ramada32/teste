@@ -24,6 +24,7 @@ export class TransferComponent implements OnInit {
     this.transferService.findAll().subscribe((result: Transfer[]) => {
       this.transfers = result ? result : [];
     });
+
   }
 
   edit(id: number) {

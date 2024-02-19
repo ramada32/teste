@@ -12,12 +12,8 @@ public interface TransferService {
 
     TransferEntity create(TransferRequest transferRequest);
 
-    TransferEntity update(TransferRequest transferRequest, Integer id);
-
     List<TransferEntity> findAll();
 
     TransferEntity findById(Integer id);
-
-    void delete(Integer id);
 
 }

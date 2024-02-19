@@ -1,9 +1,15 @@
 package com.ctbcbank.lab.backend.mapper;
 
+import com.ctbcbank.lab.backend.model.entity.CustomerAccountEntity;
 import com.ctbcbank.lab.backend.model.entity.TransferEntity;
 import com.ctbcbank.lab.backend.model.request.TransferRequest;
 import com.ctbcbank.lab.backend.model.response.TransferResponse;
+import com.ctbcbank.lab.backend.service.CustomerAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,23 +18,17 @@ public class TransferMapper {
 
     public static void mapUpdate(TransferRequest request, TransferEntity entity){
 
+
         entity.setValueTransfer(request.getValueTransfer());
-        entity.setRateTransfer(request.getRateTransfer());
         entity.setValueTransfer(request.getValueTransfer());
-        entity.setDateFinal(request.getDateFinal());
-        entity.setNumberAccount(request.getNumberAccount());
-        entity.setDateInitial(request.getDateInitial());
-        entity.setFreeValue(request.getFreeValue());
+        entity.setDateFinal(LocalDateTime.from(LocalDateTime.from(request.getDateFinal())));
     }
     public static TransferEntity mapEntity(TransferRequest request){
 
         return TransferEntity.builder()
-                .numberAccount(request.getNumberAccount())
-                .dateInitial(request.getDateInitial())
-                .dateFinal(request.getDateFinal())
-                .rateTransfer(request.getRateTransfer())
+                .dateInitial(LocalDateTime.now())
+                .dateFinal(LocalDateTime.from(request.getDateFinal()))
                 .valueTransfer(request.getValueTransfer())
-                .freeValue(request.getFreeValue())
                 .build();
 
     }
@@ -38,7 +38,8 @@ public class TransferMapper {
 
         return TransferResponse.builder()
                 .id(entity.getId())
-                .numberAccount(entity.getNumberAccount())
+                .numberAccount(entity.getCustomerAccount().getId())
+                .numberAccountDestiny(entity.getCustomerAccountDestiny().getId())
                 .dateInitial(entity.getDateInitial())
                 .dateFinal(entity.getDateFinal())
                 .rateTransfer(entity.getRateTransfer())
@@ -53,3 +54,5 @@ public class TransferMapper {
                 .collect(Collectors.toList());
     }
 }
+
+

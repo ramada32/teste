@@ -3,21 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { TransferFormComponent } from './transfer/transfer-form/transfer-form.component';
 import { TransferComponent } from './transfer/transfer.component';
+import { CustomerComponent } from './customer/customer.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: TransferComponent,
+    component: CustomerComponent,
   },
-  //{
-  //  path: 'form',
-  //  component: TransferFormComponent,
-  // },
   {
-    path: 'form',
+    path: 'transfer',
     children: [
-      { path: 'adicionar', component: TransferFormComponent },
+      { path: ':clientId', component: TransferComponent },
+      { path: 'adicionar/:clientId', component: TransferFormComponent },
       { path: 'editar/:id', component: TransferFormComponent },
     ], //pasteamento telas
   },

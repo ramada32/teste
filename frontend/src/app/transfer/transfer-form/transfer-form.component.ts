@@ -32,11 +32,10 @@ export class TransferFormComponent {
 
   createForm(): void {
     this.transferForm = this.fb.group({
-      dateInitial: ['', [Validators.required]],
       dateFinal: ['', [Validators.required]],
-      rateTransfer: ['', [Validators.required, Validators.min(1)]],
+      numberAccount: ['', [Validators.required, Validators.min(1)]],
+      numberAccountDestiny: ['', [Validators.required, Validators.min(1)]],
       valueTransfer: ['', [Validators.required, Validators.min(1)]],
-      freeValue: ['', [Validators.required, Validators.min(1)]],
     });
   }
 
@@ -62,7 +61,12 @@ export class TransferFormComponent {
           detail: 'Transferencia salvo com sucesso',
         });
         this.router.navigateByUrl('/');
-      });
+      }, err =>{
+        this.messageService.add({
+          severity: 'error',
+            summary: 'ERRO',
+            detail: 'PREENCHIMENTO INCORRETO DE UM OU MAIS CAMPOS'});
+      })
 
   }
 
@@ -82,6 +86,8 @@ export class TransferFormComponent {
     this.transferService
       .findById(this.transferId!)
       .subscribe((result: Transfer) => {
+        this.transferForm.get('numberAccount')?.setValue(result.numberAccount);
+        this.transferForm.get('numberAccountDestiny')?.setValue(result.numberAccountDestiny);
         this.transferForm.get('dateInitial')?.setValue(new Date(result.dateInitial!));
         this.transferForm.get('dateFinal')?.setValue(new Date(result.dateFinal!));
         this.transferForm.get('rateTransfer')?.setValue(result.rateTransfer);

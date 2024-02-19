@@ -6,7 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @Builder
@@ -14,10 +17,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TransferRequest {
 
-    private CustomerAccountEntity numberAccount;
-    private LocalDateTime dateInitial;
+    private Integer numberAccount;
+    private Integer numberAccountDestiny;
     private LocalDateTime dateFinal;
-    private Double rateTransfer;
-    private Double valueTransfer;
-    private Double freeValue;
+    private BigDecimal valueTransfer;
 }

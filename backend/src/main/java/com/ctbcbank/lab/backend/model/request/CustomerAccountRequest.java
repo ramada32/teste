@@ -2,6 +2,8 @@ package com.ctbcbank.lab.backend.model.request;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -9,5 +11,5 @@ import lombok.*;
 public class CustomerAccountRequest {
 
     private String name;
-    private Double valueAccount;
+    private BigDecimal valueAccount;
 }

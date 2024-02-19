@@ -1,11 +1,8 @@
 package com.ctbcbank.lab.backend.controller;
 
 import com.ctbcbank.lab.backend.mapper.CustomerAccountMapper;
-import com.ctbcbank.lab.backend.mapper.TransferMapper;
 import com.ctbcbank.lab.backend.model.entity.CustomerAccountEntity;
-import com.ctbcbank.lab.backend.model.entity.TransferEntity;
 import com.ctbcbank.lab.backend.model.response.CustomerAccountResponse;
-import com.ctbcbank.lab.backend.model.response.TransferResponse;
 import com.ctbcbank.lab.backend.service.CustomerAccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

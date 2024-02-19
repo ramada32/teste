@@ -1,17 +1,20 @@
 package com.ctbcbank.lab.backend.service.impl;
 
 import com.ctbcbank.lab.backend.mapper.TransferMapper;
+import com.ctbcbank.lab.backend.model.entity.CustomerAccountEntity;
 import com.ctbcbank.lab.backend.model.entity.TransferEntity;
 import com.ctbcbank.lab.backend.model.repository.TransferRepository;
 import com.ctbcbank.lab.backend.model.request.TransferRequest;
+import com.ctbcbank.lab.backend.service.CustomerAccountService;
 import com.ctbcbank.lab.backend.service.TransferService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,24 +26,24 @@ public class TransferServiceImpl implements TransferService {
 
         private final TransferRepository transferRepository;
 
+        private final CustomerAccountService customerAccountService;
 
         @Override
         public Double calculateRateTransfer(LocalDateTime finalDate){
 
-            Duration daysRateTransfer = Duration.between(LocalDateTime.now() , finalDate.toLocalDate());
-            Double rate = 0.0;
+            double rate = 0.0;
 
-            Long daysCalculate = daysRateTransfer.toDays();
+            long daysCalculate = ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.from(finalDate));
 
             if(daysCalculate == 0){
                 rate = 2.5;
             }else if(daysCalculate >= 11 && daysCalculate <= 20){
                 rate = 8.2;
-            }else if(daysCalculate <= 30){
+            }else if(daysCalculate >= 21 && daysCalculate <= 30){
                 rate = 6.9;
-            }else if(daysCalculate <= 40){
+            }else if(daysCalculate >= 31 && daysCalculate <= 40){
                 rate = 4.7;
-            }else if(daysCalculate <= 50){
+            }else if(daysCalculate >= 41 && daysCalculate <= 50){
                 rate = 1.7;
             }
 
@@ -49,17 +52,34 @@ public class TransferServiceImpl implements TransferService {
 
     @Override
     public TransferEntity create(TransferRequest transferRequest) {
+
+        CustomerAccountEntity customerAccount = Optional.ofNullable(
+                customerAccountService.findById(transferRequest.getNumberAccount())).orElse(null);
+
+        CustomerAccountEntity customerAccountDestiny = Optional.ofNullable(
+                customerAccountService.findById(transferRequest.getNumberAccountDestiny())).orElse(null);
+
         TransferEntity entity = TransferMapper.mapEntity(transferRequest);
+        entity.setRateTransfer(calculateRateTransfer(LocalDateTime.from(transferRequest.getDateFinal())));
+        entity.setFreeValue(new BigDecimal(transferRequest.getValueTransfer().doubleValue() * (entity.getRateTransfer()/100)));
+        entity.setCustomerAccount(customerAccount);
+        entity.setCustomerAccountDestiny(customerAccountDestiny);
+        if(entity.getRateTransfer() == 0.0 || entity.getValueTransfer().doubleValue() > customerAccount.getValueAccount().doubleValue()){
+            throw new RuntimeException("Não pode ser feito transferencia");
+        }else{
+            if(entity.getRateTransfer() == 2.5){
+                customerAccountService.update(
+                        customerAccountDestiny.getValueAccount().add(entity.getValueTransfer()), transferRequest.getNumberAccountDestiny());
 
-        return transferRepository.save(entity);
-    }
+                BigDecimal result = new BigDecimal(String.valueOf(customerAccount.getValueAccount().subtract(entity.getFreeValue()).subtract(transferRequest.getValueTransfer())));
+                customerAccount.setValueAccount(result);
 
-    @Override
-    public TransferEntity update(TransferRequest transferRequest, Integer id) {
-            TransferEntity entity = findById(id);
-            TransferMapper.mapUpdate(transferRequest, entity);
-            transferRepository.save(entity);
-        return entity;
+                customerAccountService.update(customerAccount.getValueAccount(), transferRequest.getNumberAccount());
+
+            }
+
+            return transferRepository.save(entity);
+        }
     }
 
     @Override
@@ -75,11 +95,4 @@ public class TransferServiceImpl implements TransferService {
                 .map(Optional::get)
                 .orElseThrow(() -> new RuntimeException("deu ruim"));
     }
-
-    @Override
-    public void delete(Integer id) {
-        transferRepository.delete(findById(id));
-    }
-
-
 }

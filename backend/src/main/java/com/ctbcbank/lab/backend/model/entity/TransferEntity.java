@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -22,21 +24,25 @@ public class TransferEntity {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "NUMBER_ACCOUNT", name = "NUMBER_ACCOUNT")
-    private CustomerAccountEntity numberAccount; //
+    @JoinColumn(name = "NUMBER_ACCOUNT")
+    private CustomerAccountEntity customerAccount;
+
+    @ManyToOne
+    @JoinColumn(name = "NUMBER_ACCOUNT_DESTINY")
+    private CustomerAccountEntity customerAccountDestiny;
 
     @Column(name = "DATE_INITIAL")
     private LocalDateTime dateInitial;
 
     @Column(name = "DATE_FINAL")
-    private LocalDateTime dateFinal; //
+    private LocalDateTime dateFinal;
 
     @Column(name = "RATE_TRANSFER")
     private Double rateTransfer;
 
     @Column(name = "FREE_VALUE_TRANSFER")
-    private Double freeValue;
+    private BigDecimal freeValue;
 
     @Column(name = "VALUE_TRANSFER")
-    private Double valueTransfer;  //
+    private BigDecimal valueTransfer;
 }

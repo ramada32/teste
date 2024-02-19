@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @Entity
@@ -24,6 +25,6 @@ public class CustomerAccountEntity{
     private String name;
 
     @Column(name = "VALUE_ACCOUNT")
-    private Double valueAccount;
+    private BigDecimal valueAccount;
 
 }

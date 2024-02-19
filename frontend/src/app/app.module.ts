@@ -13,12 +13,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
+import { CustomerComponent } from './customer/customer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TransferComponent,
-    TransferFormComponent
+    CustomerComponent,
+    TransferFormComponent,
   ],
   imports: [
     BrowserModule,
