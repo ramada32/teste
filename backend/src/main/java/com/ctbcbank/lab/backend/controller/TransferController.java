@@ -40,7 +40,7 @@ public class TransferController {
             return ResponseEntity.ok(TransferMapper.mapResponseList(entities));
         }
 
-        @GetMapping(value = "/{id}")
+        @GetMapping(value = "/customer/{id}")
         public ResponseEntity<TransferResponse> findById(@PathVariable Integer id){
 
             TransferResponse response = Optional.ofNullable(transferService.findById(id))
@@ -50,6 +50,15 @@ public class TransferController {
             return ResponseEntity.ok(response);
         }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<List<TransferResponse>> findTransferCustomerAccountId(@PathVariable Integer id){
+
+        List<TransferResponse> response = Optional.ofNullable(transferService.findByCustomerAccountId(id))
+                .map(TransferMapper::mapResponseList)
+                .orElse(null);
+
+        return ResponseEntity.ok(response);
+    }
         @PostMapping
         public ResponseEntity<TransferResponse> save(@RequestBody TransferRequest request){
 

@@ -95,6 +95,13 @@ public class TransferServiceImpl implements TransferService {
         return Optional.of(transferRepository.findById(id))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .orElseThrow(() -> new RuntimeException("deu ruim"));
+                .orElseThrow(() -> new RuntimeException("Erro nenhum dado com o id informado"));
+    }
+
+    @Override
+    public List<TransferEntity> findByCustomerAccountId(Integer id){
+
+       return  Optional.of(transferRepository.findByCustomerAccountId(id))
+                .orElseThrow(() -> new RuntimeException("Erro nenhum dado com o id informado"));
     }
 }

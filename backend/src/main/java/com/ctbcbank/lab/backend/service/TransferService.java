@@ -16,4 +16,6 @@ public interface TransferService {
 
     TransferEntity findById(Integer id);
 
+    List<TransferEntity> findByCustomerAccountId(Integer id);
+
 }

@@ -21,6 +21,10 @@ export class TransferService {
     return this.http.get<Transfer>(`${URL}/${id}`);
   }
 
+  findTransferCustomerAccountId(id: number): Observable<Transfer[]> {
+    return this.http.get<Transfer[]>(`${URL}/${id}`);
+  }
+
   save(transferForm: TransferForm): Observable<Transfer> {
     return this.http.post<Transfer>(`${URL}`, transferForm);
   }

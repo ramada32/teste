@@ -94,6 +94,7 @@ id: any;
         this.transferForm.get('dateInitial')?.setValue(new Date(result.dateInitial!));
         this.transferForm.get('dateFinal')?.setValue(new Date(result.dateFinal!));
         this.transferForm.get('rateTransfer')?.setValue(result.rateTransfer);
+        this.transferForm.get('valueTransfer')?.setValue(result.valueTransfer);
         this.transferForm.get('freeValue')?.setValue(result.freeValue);
         console.log(this.transferForm.value)
       });

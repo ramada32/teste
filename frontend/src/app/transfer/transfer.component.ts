@@ -1,7 +1,8 @@
 import { Transfer } from './../shared/model/transfer';
 import { Component, OnInit } from '@angular/core';
 import { TransferService } from '../shared/service/transfer.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-transfer',
@@ -9,7 +10,13 @@ import { Router } from '@angular/router';
   styleUrl: './transfer.component.css',
 })
 export class TransferComponent implements OnInit {
+  transferForm!: FormGroup;
+  transferId?: number;
+  btnLabel: string = 'salvar';
 searchText: any;
+id: any;
+  activatedRoute: any;
+  actived: any;
 loadTransfer() {
 throw new Error('Method not implemented.');
 }
@@ -17,11 +24,12 @@ throw new Error('Method not implemented.');
 
   constructor(
     public transferService: TransferService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this.findAll();
+    this.obterPorId(this.route.snapshot.params['clientId']);
   }
 
   findAll() {
@@ -30,6 +38,12 @@ throw new Error('Method not implemented.');
     });
 
   }
+
+  obterPorId(id: number){
+    this.transferService.findTransferCustomerAccountId(id).subscribe((result: Transfer[]) => {
+      this.transfers = result ? result : [];
+  });
+}
 
   edit(id: number) {
     this.router.navigateByUrl(`/form/editar/${id}`);
