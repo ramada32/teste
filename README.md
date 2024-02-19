@@ -10,12 +10,16 @@ solicitar transação maior que a conta e caso dias superior a 50 ou menor que 1
 pesquisa de lista pelo id do numberAccount.
 
 ## Layout web
+Tela Inicial - Lista de Clientes da tabela customer gerada automaticamente pelo script data.sql no backend
 ![telaInicial-list-customer](https://github.com/ramada32/teste/assets/37840920/a642aff7-d3ae-4bf7-ba29-26790cc658df)
 
+Transação efetuada com sucesso sendo feito no mesmo dia já fazendo os descontos de taxa e valor da conta (OBS: só faz o desconto do valor da conta se for para o mesmo dia)
 ![sucesso-transfer-0days](https://github.com/ramada32/teste/assets/37840920/511dcc66-e645-4078-9540-431828e335c2)
 
+Error pois o numberAccount era o mesmo do numberAccountDestiny outros casos como datas não aderentes as regras tambem causa o mesmo erro e o popup
 ![error-transfer-numberDestiny-equals-numberAccount](https://github.com/ramada32/teste/assets/37840920/51dd3307-20d6-4e59-97f0-121fb614b0b5)
 
+Lista de transferias feita pelo id do numberAccount do usuario origem
 ![list-transfer-customerId-equals-numberAccount](https://github.com/ramada32/teste/assets/37840920/6c46cd68-4ad6-4e27-b8de-97dd5c3a7e25)
 
 
