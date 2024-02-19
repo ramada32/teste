@@ -73,7 +73,9 @@ public class TransferServiceImpl implements TransferService {
                 customerAccountService.update(
                         customerAccountDestiny.getValueAccount().add(entity.getValueTransfer()), transferRequest.getNumberAccountDestiny());
 
-                BigDecimal result = new BigDecimal(String.valueOf(customerAccount.getValueAccount().subtract(entity.getFreeValue()).subtract(transferRequest.getValueTransfer())));
+                BigDecimal result = new BigDecimal(String.valueOf(customerAccount.getValueAccount()
+                        .subtract(entity.getFreeValue()).subtract(transferRequest.getValueTransfer())));
+
                 customerAccount.setValueAccount(result);
 
                 customerAccountService.update(customerAccount.getValueAccount(), transferRequest.getNumberAccount());
