@@ -65,7 +65,7 @@ public class TransferServiceImpl implements TransferService {
         entity.setCustomerAccount(customerAccount);
         entity.setCustomerAccountDestiny(customerAccountDestiny);
         if(entity.getRateTransfer() == 0.0
-                || entity.getValueTransfer().doubleValue() > customerAccount.getValueAccount().doubleValue()
+                || entity.getValueTransfer().doubleValue() > customerAccount.getValueAccount().doubleValue() && entity.getRateTransfer() == 2.5
                 || entity.getCustomerAccount() == entity.getCustomerAccountDestiny()){
             throw new RuntimeException("Não pode ser feito transferencia");
         }else{
