@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -14,26 +15,30 @@ export class TransferFormComponent {
   transferForm!: FormGroup;
   transferId?: number;
   btnLabel: string = 'salvar';
+searchText: any;
+id: any;
+  activatedRoute: any;
+
 
   constructor(
     private fb: FormBuilder,
     private transferService: TransferService,
     private router: Router,
     private actived: ActivatedRoute,
+    private route: ActivatedRoute,
     private messageService: MessageService
   ) {
     this.createForm();
-    this.transferId = this.actived.snapshot.params['id'];
+    this.transferId = this.actived.snapshot.params['clientId'];
     if (this.transferId) {
       this.btnLabel = 'atualizar';
-      this.loadTransfer();
     }
   }
 
   createForm(): void {
     this.transferForm = this.fb.group({
       dateFinal: ['', [Validators.required]],
-      numberAccount: ['', [Validators.required, Validators.min(1)]],
+      numberAccount: [this.actived.snapshot.params['clientId'], [Validators.required, Validators.min(1)]],
       numberAccountDestiny: ['', [Validators.required, Validators.min(1)]],
       valueTransfer: ['', [Validators.required, Validators.min(1)]],
     });
@@ -43,14 +48,10 @@ export class TransferFormComponent {
     console.log(this.transferForm.value)
     if(this.transferForm.valid){
       if(this.transferId){
-        this.update()
-
-      }else{
         this.save()
       }
     }
   }
-
 
   save(): void {
 
@@ -82,6 +83,8 @@ export class TransferFormComponent {
     });
   }
 
+
+
   loadTransfer() {
     this.transferService
       .findById(this.transferId!)
@@ -91,7 +94,6 @@ export class TransferFormComponent {
         this.transferForm.get('dateInitial')?.setValue(new Date(result.dateInitial!));
         this.transferForm.get('dateFinal')?.setValue(new Date(result.dateFinal!));
         this.transferForm.get('rateTransfer')?.setValue(result.rateTransfer);
-        this.transferForm.get('valueTransfer')?.setValue(result.valueTransfer);
         this.transferForm.get('freeValue')?.setValue(result.freeValue);
         console.log(this.transferForm.value)
       });

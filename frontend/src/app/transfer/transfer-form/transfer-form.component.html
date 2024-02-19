@@ -2,7 +2,6 @@
 <form [formGroup]="transferForm"  (submit)="saveUpdate()">
 
   <div class="grid formgrid">
-
     <span class="p-float-label  m-5 col">
       <p-calendar formControlName="dateFinal"></p-calendar>
       <label htmlFor="number-input">Agendar Transferencia Para</label>
@@ -14,8 +13,8 @@
     </span>
 
     <span class="p-float-label  m-5 col">
-      <p-inputNumber formControlName="numberAccount"></p-inputNumber>
-      <label htmlFor="number-input" aria-valuenow=transferForm.valid>Numero da sua Conta</label>
+      <p-inputNumber formControlName="numberAccount" [readonly]="true"></p-inputNumber>
+      <label htmlFor="number-input" readonly>Numero da sua Conta</label>
     </span>
 
     <span class="p-float-label  m-5 col">
@@ -27,3 +26,4 @@
     <p-button [label]="btnLabel" type="submit" [disabled]="!this.transferForm.valid"></p-button>
 
 </form>
+

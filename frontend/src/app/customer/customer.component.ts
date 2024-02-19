@@ -31,4 +31,6 @@ import { Router } from '@angular/router';
     edit(id: number) {
       this.router.navigateByUrl(`/customer/editar/${id}`);
    }
+
+
   }

@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
   styleUrl: './transfer.component.css',
 })
 export class TransferComponent implements OnInit {
+searchText: any;
+loadTransfer() {
+throw new Error('Method not implemented.');
+}
   transfers: Transfer[] = [];
 
   constructor(
