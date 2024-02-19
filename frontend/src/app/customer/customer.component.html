@@ -1,0 +1,21 @@
+<p-table [value]="customers">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>numberAccount</th>
+      <th>name</th>
+      <th>valueAccount</th>
+      <th>ações</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-customer>
+    <tr>
+      <td>{{ customer.id }}</td>
+      <td>{{ customer.name }}</td>
+      <td>R$ {{ customer.valueAccount }}</td>
+      <td>
+        <p-button label="Transferir" [routerLink]="'/transfer/adicionar/'+ customer.id"></p-button>
+        <p-button label="Historico" [routerLink]="'/transfer/'+ customer.id"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
