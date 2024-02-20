@@ -9,6 +9,11 @@ Existe algumas regras do tipo, caso o agendamento seja para o mesmo dia ele já 
 solicitar transação maior que a conta e caso dias superior a 50 ou menor que 11 e maior que 0 ele já vai dar erro e acionar o popup, além de que numberAccount não pode ser o mesmo do numberAccountDestiny, no historico ele faz
 pesquisa de lista pelo id do numberAccount.
 
+Regra das Taxas
+
+![regra-taxas](https://github.com/ramada32/teste/assets/37840920/a42c91ec-2795-468d-b1d6-fc6c72b9c4cd)
+
+
 ## Layout web
 Tela Inicial - Lista de Clientes da tabela customer gerada automaticamente pelo script data.sql no backend
 ![telaInicial-list-customer](https://github.com/ramada32/teste/assets/37840920/a642aff7-d3ae-4bf7-ba29-26790cc658df)
